@@ -37,3 +37,5 @@ For more detailed documentation, please see:
 
 * Shippable's continuous deployment section: http://docs.shippable.com/en/latest/config.html#continuous-deployment
 * Slack integration documentation: https://my.slack.com/services/new/incoming-webhook
+
+This sample is built for Shippable, a docker based continuous integration and deployment platform.
