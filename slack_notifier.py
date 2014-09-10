@@ -25,14 +25,15 @@ def get_full_message(commit):
 
 def post_message(connection, url, success, project):
   headers = {'Content-Type': 'application/json'}
-  build_url = os.environ['BUILD_URL']
+  build_url = 'https://app.shippable.com/builds/%s' % (os.environ['BUILD_GROUP_ID'])
+  build_group_number = os.environ['BUILD_GROUP_NUMBER']
   build_number = os.environ['BUILD_NUMBER']
   branch = os.environ['BRANCH']
   commit = os.environ['COMMIT']
 
   status_text = 'succeeded' if success else 'failed'
   color = 'good' if success else 'danger'
-  text = '<%s|Build #%s> %s for project %s on branch %s' % (build_url, build_number, status_text, project, branch)
+  text = '<%s|Build #%s.%s> %s for project %s on branch %s' % (build_url, build_group_number, build_number, status_text, project, branch)
 
   message = {
     'username': 'Shippable',
