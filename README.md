@@ -12,26 +12,21 @@ All the heavy-lifting of sending the message to Slack is performed by `slack_not
 that is included in this repository. You can freely copy it to your project to setup the
 integration.
 
-The script requires the following arguments:
+You will need to provide the script a `SLACK_WEBHOOK` environment variable that will be the `/services/XXX/YYY/ZZZ` of your webook.
+You can also provide the channel to post to via the `SLACK_CHANNEL` environment variable, including `#`. If omited, it will post to `#general`.
 
-* `--project` -- the human-readable name of your project
-* `--org` -- name of your Slack organization
-* `--token` -- your Slack API token that is assigned during webhook creation
-
-By default, the build is marked as failure. To mark it as success, add `-s` option. You will most
-likely prefer to save the values for parameters above as environment variables, with Slack token
-being an encrypted one:
-
-    - SLACK_ORG=tuples PROJECT=sample-rubyonrails-postgres-heroku
+    - SLACK_CHANNEL=#myproject
     - secure: MRuHkLbL9HPkJPU5lzkKM1+NOq1S5RrhxEyhJkk60xxYiF7DMzydiBN8oFBjWrSmyGeGRuEC22a0I5ItobdWVszfcJCaXHwtfKzfGOUdKuyCnDgvojXhv/jrBvULyLK6zsLw3b8NMxdnwNsHqSPm19qW/EIGEl9Zv/637Igos69z9aT7+xrEG013+6HtKYb8RHm+iPSNsFoBi/RSAHYuM1eLTZWG2WAkjgzZaYmrHCgNwVmk+HOGR+TOWN7Iu5lrjyvC1XDCQrOvo1hZI30cd9OqJ5aadFm3exQpNhI4I7AgOnCbK3NoWNc/GAnqKXCvsaIQ80Jd/uLIOVyMjD6Xmg==
+
+By default, the build is marked as failure. To mark it as success, add `-s` option. 
 
 Then, you can add `after_failure` and `after_success` steps as follows:
 
     after_failure:
-      - python slack_notifier.py --project $PROJECT --org $SLACK_ORG --token $SLACK_TOKEN
+      - python slack_notifier.py
 
     after_success:
-      - python slack_notifier.py --project $PROJECT --org $SLACK_ORG --token $SLACK_TOKEN -s
+      - python slack_notifier.py -s
 
 For more detailed documentation, please see:
 
