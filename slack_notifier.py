@@ -1,6 +1,7 @@
 import httplib, json
 import getopt, sys, os
 import subprocess
+import warnings
 
 def get_connection():
   return httplib.HTTPSConnection('hooks.slack.com')
@@ -57,7 +58,7 @@ def post_message(connection, url, success, project):
 
 def main():
   try:
-    opts, args = getopt.getopt(sys.argv[1:], ':sf', ['project=', 'token='])
+    opts, args = getopt.getopt(sys.argv[1:], ':sf', ['project=', 'token=', 'org='])
   except getopt.GetoptError as err:
     print str(err)
     sys.exit(2)
@@ -72,6 +73,8 @@ def main():
       project = arg
     elif o == '--token':
       token = arg
+    elif o == '--org':
+      warnings.warn('--org is unneeded, --token is enough.')
 
   connection = get_connection()
   url = get_url(token)
