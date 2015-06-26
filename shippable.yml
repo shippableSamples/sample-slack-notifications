@@ -4,7 +4,7 @@ rvm:
 
 env:
   global:
-    - SLACK_ORG=tuples PROJECT=sample-rubyonrails-postgres-heroku
+    - PROJECT=sample-rubyonrails-postgres-heroku
     - APP_NAME=fierce-plains-1014
     - CI_REPORTS=shippable/testresults COVERAGE_REPORTS=shippable/codecoverage
     - secure: MRuHkLbL9HPkJPU5lzkKM1+NOq1S5RrhxEyhJkk60xxYiF7DMzydiBN8oFBjWrSmyGeGRuEC22a0I5ItobdWVszfcJCaXHwtfKzfGOUdKuyCnDgvojXhv/jrBvULyLK6zsLw3b8NMxdnwNsHqSPm19qW/EIGEl9Zv/637Igos69z9aT7+xrEG013+6HtKYb8RHm+iPSNsFoBi/RSAHYuM1eLTZWG2WAkjgzZaYmrHCgNwVmk+HOGR+TOWN7Iu5lrjyvC1XDCQrOvo1hZI30cd9OqJ5aadFm3exQpNhI4I7AgOnCbK3NoWNc/GAnqKXCvsaIQ80Jd/uLIOVyMjD6Xmg==
@@ -19,10 +19,10 @@ before_script:
   - psql -c 'create database "sample-rubyonrails-postgres-heroku_test";' -U postgres
 
 after_failure:
-  - python slack_notifier.py --project $PROJECT --org $SLACK_ORG --token $SLACK_TOKEN
+  - python slack_notifier.py --project $PROJECT --token $SLACK_TOKEN
 
 after_success:
-  - python slack_notifier.py --project $PROJECT --org $SLACK_ORG --token $SLACK_TOKEN -s
+  - python slack_notifier.py --project $PROJECT --token $SLACK_TOKEN -s
   - test -f ~/.ssh/id_rsa.heroku || ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.heroku && heroku keys:add ~/.ssh/id_rsa.heroku
   - git remote -v | grep ^heroku || heroku git:remote --app $APP_NAME
   - git push -f heroku $BRANCH:master
