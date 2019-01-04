@@ -1,3 +1,7 @@
+# Note
+
+The functionality of this sample has been integrated in to `shipctl`. Please refer to the documentation on [shipctl notify](http://docs.shippable.com/platform/tutorial/workflow/using-shipctl/#notify) instead.
+
 Sample of Slack notifications integration
 =========================================
 
